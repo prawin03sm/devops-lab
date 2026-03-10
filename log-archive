@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if log directory argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: log-archive <log-directory>"
+  exit 1
+fi
+
+LOG_DIR=$1
+ARCHIVE_DIR="$HOME/log_archives"
+DATE=$(date +"%Y%m%d_%H%M%S")
+
+mkdir -p $ARCHIVE_DIR
+
+ARCHIVE_FILE="$ARCHIVE_DIR/logs_archive_$DATE.tar.gz"
+
+tar -czf $ARCHIVE_FILE $LOG_DIR
+
+echo "Archive created: $ARCHIVE_FILE"
+
+# Log archive date
+echo "Archived $LOG_DIR at $DATE" >> $ARCHIVE_DIR/archive_log.txt
